@@ -1,0 +1,51 @@
+
+import useCarFilter from "../../../shared/hooks/useCarFilter";
+import CarFilter from "../../../shared/ui/CarFilter";
+import CarList from "../../../shared/ui/CarList";
+import PageBanner from "../../../shared/ui/PageBanner";
+import Pagination from "../../../shared/ui/Pagination";
+
+import { cars } from "../../../shared/data/cars";
+
+const Cars = () => {
+    const {
+        search,
+        setSearch,
+        selectedTypes,
+        handleCheckbox,
+        handleSearch, 
+        currentCars,
+        totalPages,
+        currentPage,
+        setCurrentPage,
+    } = useCarFilter(cars);
+
+    return (
+        <>
+            <PageBanner title="Cars" currentPage="Cars" />
+
+            <div className="section section-container items-start! py-[8%] flex flex-col lg:flex-row gap-10">
+
+                <CarFilter
+                    search={search}
+                    setSearch={setSearch}
+                    selectedTypes={selectedTypes}
+                    handleCheckbox={handleCheckbox}
+                    onSearch={handleSearch} 
+                />
+
+                <div className="w-full lg:w-[70%]">
+                    <CarList cars={currentCars} />
+
+                    <Pagination
+                        totalPages={totalPages}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
+                    />
+                </div>
+            </div>
+        </>
+    );
+};
+
+export default Cars;
